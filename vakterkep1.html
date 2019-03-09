@@ -64,13 +64,14 @@
   <input type="button" value="ellenőrzés" onclick="ellenorzes()" style="margin-top:5px"/>
   <div class="varos", style="height: 150px", id="eredmeny">
   </div>
+  <input type="button" value="Tovább>>" onclick="ujra()" style="margin-top:5px"/>
    <script>
    x=0
    y=0
     sz=0
-   var felvidek=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"]
+   var lista=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"]
    function main(){
-     var valaszt = felvidek[Math.floor(Math.random()*felvidek.length)]
+     valaszt = lista[Math.floor(Math.random()*lista.length)]
      elemek=valaszt.split(",")
      varos = elemek[0]
      vx = elemek[1]
@@ -78,7 +79,6 @@
      document.getElementById("varos").innerHTML=varos
    }
   main()
-   var felvidek=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"]
     function showCoords(event) {
      x = event.clientX;
      y = event.clientY;
@@ -123,9 +123,15 @@
    }
    function ellenorzes(){
       ottvan()
-      var tav=tavolsag()
+      tav=tavolsag()
       var km=Math.round(tav*5/3)
-      document.getElementById("eredmeny").innerHTML=tav.toString()+" pixel, azaz kb."+km.toString()+" km eltérés"
+      document.getElementById("eredmeny").innerHTML="kb."+km.toString()+" km eltérés"
+      if (tav<10){
+       document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Nem rossz a'!"
+      }
+      else {
+       document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Eeeeeeeeeeh..."
+      }
    }
    
    function tavolsag(){
@@ -133,6 +139,17 @@
      var t2 = Math.abs(vy-y)
      var t= Math.round(Math.sqrt(t1*t1+t2*t2))
      return t
+   }
+   function ujra(){
+     document.getElementById("terkep").removeChild(ott)
+     if (tav<10){
+         lista.splice( lista.indexOf(valaszt), 1 );
+         }
+     document.getElementById("eredmeny").innerHTML=""
+     main()
+     if (lista.length<2){
+       window.alert("Teszt vége")
+     }
    }
   </script>
 </body>
