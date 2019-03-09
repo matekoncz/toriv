@@ -31,6 +31,7 @@
     color:white;
   }
   .actual{
+    padding: 3px;
     background-color: orange;
     color: white;
     text-align: center;
@@ -58,21 +59,37 @@
   <div class="headline">VAKTERKEP</div>
   <div class="eger" id="eger"></div>
   <div class="actual">
-  <div class="varos"; id="varos"></div>
+  <div class="varos"; id="varos"; style="margin-top:5px">
+  </div>
+  <input type="button" value="ellenőrzés" onclick="ellenorzes()" style="margin-top:5px"/>
+  <div class="varos", style="height: 150px", id="eredmeny">
   </div>
    <script>
+   x=0
+   y=0
+    sz=0
+   var felvidek=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"]
+   function main(){
+     var valaszt = felvidek[Math.floor(Math.random()*felvidek.length)]
+     elemek=valaszt.split(",")
+     varos = elemek[0]
+     vx = elemek[1]
+     vy = elemek[2]
+     document.getElementById("varos").innerHTML=varos
+   }
+  main()
    var felvidek=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"]
     function showCoords(event) {
-     var x = event.clientX;
-     var y = event.clientY;
+     x = event.clientX;
+     y = event.clientY;
      var coords = "X coords: " + x + ", Y coords: " + y;
      document.getElementById("eger").innerHTML = coords;
-     jeloles(x,y)
+     jeloles(x,y) 
     }
    function jeloles(x,y){
      var ter=document.getElementById("terkep")
      if (ter.childElementCount>0){
-       ter.removeChild(document.getElementById("jel"))
+       ter.removeChild(document.getElementById("jel"))    
      }
      var div=document.createElement("div")
      div.id="jel"
@@ -82,9 +99,40 @@
      y1=y+"px"
      div.style.top=y1
      div.style.left=x1
-     div.style.width="3px"
-     div.style.height="3px"
+     div.style.width="7px"
+     div.style.height="7px"
      ter.appendChild(div)
+   }
+   function ottvan(){
+     var ter=document.getElementById("terkep")
+     /*if (ter.childElementCount>0){
+       ter.removeChild(document.getElementById("ott"))    
+     }*/
+     var div=document.createElement("div")
+     div.id="ott"
+     div.style.position="absolute"
+     div.style="background-color:blue; position:absolute;"
+     x2=vx+"px"
+     y2=vy+"px"
+     div.style.top=y2
+     div.style.left=x2
+     div.style.width="5px"
+     div.style.height="5px"
+     ter.appendChild(div)
+   
+   }
+   function ellenorzes(){
+      ottvan()
+      var tav=tavolsag()
+      var km=Math.round(tav*5/3)
+      document.getElementById("eredmeny").innerHTML=tav.toString()+" pixel, azaz kb."+km.toString()+" km eltérés"
+   }
+   
+   function tavolsag(){
+     var t1 = Math.abs(vx-x)
+     var t2 = Math.abs(vy-y)
+     var t= Math.round(Math.sqrt(t1*t1+t2*t2))
+     return t
    }
   </script>
 </body>
