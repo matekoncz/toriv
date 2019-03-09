@@ -69,7 +69,7 @@
    x=0
    y=0
     sz=0
-   var lista=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"]
+   var lista=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168","Ungvár,364,174","Munkács,385,183","Beregszász,380,202","Kolozsvár,420,300","Székelyudvarhely,501,330","Kézdivásárhely,556,353","Nagyenyed,439,324","Déva,401,364","Nagyvárad,348,294","Temesvár,332,387","Szabadka,248,362","Zenta,265,369","Sopron,108,246","Fiume,12,412"]
    function main(){
      valaszt = lista[Math.floor(Math.random()*lista.length)]
      elemek=valaszt.split(",")
@@ -126,7 +126,7 @@
       tav=tavolsag()
       var km=Math.round(tav*5/3)
       document.getElementById("eredmeny").innerHTML="kb."+km.toString()+" km eltérés"
-      if (tav<10){
+      if (tav<14){
        document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Nem rossz a'!"
       }
       else {
@@ -142,7 +142,7 @@
    }
    function ujra(){
      document.getElementById("terkep").removeChild(ott)
-     if (tav<10){
+     if (tav<14){
          lista.splice( lista.indexOf(valaszt), 1 );
          }
      document.getElementById("eredmeny").innerHTML=""
