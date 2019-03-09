@@ -4,26 +4,87 @@
     background-color: lightblue;
     color: beige;
     text-align: center;
-    margin-left: 10%;
+    margin-left: 50px;
     //margin-right: 100px;
-    margin-top:2%;
-    margin-bottom:2%;
-    font-size: 75px;
-    height: 15%;
-    width: 80%;
+    margin-bottom:20px;
+    font-size: 35px;
+    height: 50px;
+    width:300px;
     float:left;
     border: 3px solid beige;
     }
   .terkep{
-    background-image: url('https://raw.githubusercontent.com/matekoncz/toriv/master/Magyarorszag_vakterkep.JPG')
-    width:60%;
-    margin-left:10%;
+    background-image: url("http://hippo.uw.hu/tori_vakterkep/Magyarorszag_vakterkep.JPG");
+    background-size: contain;
+    width:670px;
     float:left;
-    height:50%;
+    height:500px;
+  }
+  .eger{
+    width:300px;
+    margin-left:20px;
+    height: 50px;
+    text-align:center;
+    background-color:green;
+    border: 5px solid lightgreen;
+    float: left;
+    color:white;
+  }
+  .actual{
+    background-color: orange;
+    color: white;
+    text-align: center;
+    margin-left: 20px;
+    margin-top:10px;
+    font-size: 20px;
+    height: 300px;
+    width:300px;
+    float:left;
+    border: 5px solid beige;
+  }
+  .varos{
+    background-color:beige;
+    text-align: center;
+    width:200px;
+    margin-left:45px;
+    margin-top: 10px;
+    height:50px;
+    color:red;
   }
 </style>
 </head>
 <body>
+  <div class="terkep" id="terkep" onclick="showCoords(event)"></div>
   <div class="headline">VAKTERKEP</div>
-  <div class="terkep">hatittvan</div>
+  <div class="eger" id="eger"></div>
+  <div class="actual">
+  <div class="varos"; id="varos"></div>
+  </div>
+   <script>
+   var felvidek={"Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168"}
+    function showCoords(event) {
+     var x = event.clientX;
+     var y = event.clientY;
+     var coords = "X coords: " + x + ", Y coords: " + y;
+     document.getElementById("eger").innerHTML = coords;
+     jeloles(x,y)
+    }
+   function jeloles(x,y){
+     var ter=document.getElementById("terkep")
+     if (ter.childElementCount>0){
+       ter.removeChild(document.getElementById("jel"))
+     }
+     var div=document.createElement("div")
+     div.id="jel"
+     div.style.position="absolute"
+     div.style="background-color:red; position:absolute;"
+     x1=x+"px"
+     y1=y+"px"
+     div.style.top=y1
+     div.style.left=x1
+     div.style.width="3px"
+     div.style.height="3px"
+     ter.appendChild(div)
+   }
+  </script>
 </body>
