@@ -1,17 +1,13 @@
 <head>
 <style>
   .headline{
-    background-color: lightblue;
-    color: beige;
     text-align: center;
     margin-left: 50px;
     //margin-right: 100px;
-    margin-bottom:20px;
-    font-size: 35px;
+    padding:20px;
     height: 50px;
     width:300px;
     float:left;
-    border: 3px solid beige;
     }
   .terkep{
     background-image: url("http://hippo.uw.hu/tori_vakterkep/Magyarorszag_vakterkep.JPG");
@@ -55,8 +51,8 @@
 </style>
 </head>
 <body>
-  <div class="terkep" id="terkep" onclick="showCoords(event)"></div>
-  <div class="headline">VAKTERKEP</div>
+  <div class="terkep" id="terkep" onclick="showCoords(event)"><div style="position:absolute; top:100px; left:600px; background-color:green; height:20px;widtH:20px" ></div></div>
+  <div class="headline">
   <div class="eger" id="eger"></div>
   <div class="actual">
   <div class="varos"; id="varos"; style="margin-top:5px">
@@ -65,6 +61,8 @@
   <div class="varos", style="height: 150px", id="eredmeny">
   </div>
   <input type="button" value="Tovább>>" onclick="ujra()" style="margin-top:5px"/>
+  </div>
+  Az eszközről való első használat esetén kalibrálás szükséges. Kattintson a térképen található zöld négyzet BAL FELSŐ sarkába, majd a "kalibrálás" gombra. <input type="button" value="kalibrálás" onclick="kalib()"/>
    <script>
    x=0
    y=0
@@ -76,19 +74,25 @@
      varos = elemek[0]
      vx = elemek[1]
      vy = elemek[2]
+     if (localStorage.va_x){
+       vx=localStorage.va_x*vx
+       vy=localStorage.va_y*vy
+     }
      document.getElementById("varos").innerHTML=varos
    }
   main()
+  atlag=0
     function showCoords(event) {
      x = event.clientX;
      y = event.clientY;
      var coords = "X coords: " + x + ", Y coords: " + y;
      document.getElementById("eger").innerHTML = coords;
-     jeloles(x,y) 
+     jeloles(x,y)
     }
+    
    function jeloles(x,y){
      var ter=document.getElementById("terkep")
-     if (ter.childElementCount>0){
+     if (ter.childElementCount>1){
        ter.removeChild(document.getElementById("jel"))    
      }
      var div=document.createElement("div")
@@ -129,9 +133,12 @@
       if (tav<14){
        document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Nem rossz a'!"
       }
-      else {
+      else { if(tav<23){}
+      else{
        document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Eeeeeeeeeeh..."
       }
+      }
+      atlag=atlag+tav
    }
    
    function tavolsag(){
@@ -142,14 +149,16 @@
    }
    function ujra(){
      document.getElementById("terkep").removeChild(ott)
-     if (tav<14){
-         lista.splice( lista.indexOf(valaszt), 1 );
-         }
+     lista.splice( lista.indexOf(valaszt), 1 );
      document.getElementById("eredmeny").innerHTML=""
      main()
      if (lista.length<2){
-       window.alert("Teszt vége")
+       window.alert("Teszt vége - eredmény: átlagosan "+atlag/19+" km tévedés")
      }
+   }
+   function kalib(){
+       localStorage.va_x=x/600
+       localStorage.va_y=y/100
    }
   </script>
 </body>
