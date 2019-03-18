@@ -1,0 +1,156 @@
+<head>
+<style>
+  .headline{
+    text-align: center;
+    margin-left: 50px;
+    //margin-right: 100px;
+    padding:20px;
+    height: 50px;
+    width:300px;
+    float:left;
+    }
+  .terkep{
+    background-image: url("http://hippo.uw.hu/tori_vakterkep/Magyarorszag_vakterkep.JPG");
+    background-size: contain;
+    width:670px;
+    float:left;
+    height:500px;
+  }
+  .eger{
+    width:300px;
+    margin-left:20px;
+    height: 50px;
+    text-align:center;
+    background-color:green;
+    border: 5px solid lightgreen;
+    float: left;
+    color:white;
+  }
+  .actual{
+    padding: 3px;
+    background-color: orange;
+    color: white;
+    text-align: center;
+    margin-left: 20px;
+    margin-top:10px;
+    font-size: 20px;
+    height: 300px;
+    width:300px;
+    float:left;
+    border: 5px solid beige;
+  }
+  .varos{
+    background-color:beige;
+    text-align: center;
+    width:200px;
+    margin-left:45px;
+    margin-top: 10px;
+    height:50px;
+    color:red;
+  }
+</style>
+</head>
+<body>
+  <div class="terkep" id="terkep" onclick="showCoords(event)"></div>
+  <div class="headline">
+  <div class="eger" id="eger"></div>
+  <div class="actual">
+  <div class="varos"; id="varos"; style="margin-top:5px">
+  </div>
+  <input type="button" value="ellenőrzés" onclick="ellenorzes()" style="margin-top:5px"/>
+  <div class="varos", style="height: 150px", id="eredmeny">
+  </div>
+  <input type="button" value="Tovább>>" onclick="ujra()" style="margin-top:5px"/>
+  </div>
+   <script>
+   x=0
+   y=0
+    sz=0
+   var lista=["Pozsony,135,214","Trencsén,184,164","Nyitra,192,208","Rimaszombat,273,190","Kassa,319,168","Ungvár,364,174","Munkács,385,183","Beregszász,380,202","Kolozsvár,420,300","Székelyudvarhely,501,330","Kézdivásárhely,556,353","Nagyenyed,439,324","Déva,401,364","Nagyvárad,348,294","Temesvár,332,387","Szabadka,248,362","Zenta,265,369","Sopron,108,246","Fiume,12,412"]
+   function main(){
+     valaszt = lista[Math.floor(Math.random()*lista.length)]
+     elemek=valaszt.split(",")
+     varos = elemek[0]
+     vx =  Number(elemek[1])+7
+     vy = Number(elemek[2])+7
+     document.getElementById("varos").innerHTML=varos
+   }
+  main()
+  
+    function showCoords(event) {
+     x = event.clientX;
+     y = event.clientY;
+     var coords = "X coords: " + x + ", Y coords: " + y;
+     document.getElementById("eger").innerHTML = coords;
+     jeloles(x,y)
+    }
+    
+   function jeloles(x,y){
+     var ter=document.getElementById("terkep")
+     if (ter.childElementCount>0){
+       ter.removeChild(document.getElementById("jel"))    
+     }
+     var div=document.createElement("div")
+     div.id="jel"
+     div.style.position="absolute"
+     div.style="background-color:red; position:absolute;"
+     x1=x+"px"
+     y1=y+"px"
+     div.style.top=y1
+     div.style.left=x1
+     div.style.width="7px"
+     div.style.height="7px"
+     ter.appendChild(div)
+   }
+   function ottvan(){
+     var ter=document.getElementById("terkep")
+     /*if (ter.childElementCount>0){
+       ter.removeChild(document.getElementById("ott"))    
+     }*/
+     var div=document.createElement("div")
+     div.id="ott"
+     div.style.position="absolute"
+     div.style="background-color:blue; position:absolute;"
+     x2=vx+"px"
+     y2=vy+"px"
+     div.style.top=y2
+     div.style.left=x2
+     div.style.width="5px"
+     div.style.height="5px"
+     ter.appendChild(div)
+   
+   }
+   function ellenorzes(){
+      ottvan()
+      tav=tavolsag()
+      var km=Math.round(tav*5/3)
+      document.getElementById("eredmeny").innerHTML="kb."+km.toString()+" km eltérés"
+      if (tav<14){
+       document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Nem rossz a'!"
+      }
+      else { if(tav<23){}
+      else{
+       document.getElementById("eredmeny").innerHTML= document.getElementById("eredmeny").innerHTML+"  --> Eeeeeeeeeeh..."
+      }
+      }
+   }
+   
+   function tavolsag(){
+     var t1 = Math.abs(vx-x)
+     var t2 = Math.abs(vy-y)
+     var t= Math.round(Math.sqrt(t1*t1+t2*t2))
+     return t
+   }
+   function ujra(){
+     document.getElementById("terkep").removeChild(ott)
+     if (tav<14){
+         lista.splice( lista.indexOf(valaszt), 1 );
+         }
+     document.getElementById("eredmeny").innerHTML=""
+     main()
+     if (lista.length<2){
+       window.alert("Teszt vége")
+     }
+   }
+  </script>
+</body>
