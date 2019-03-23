@@ -50,19 +50,24 @@
   }
 </style>
 </head>
-<body>
-  <div class="terkep" id="terkep" onclick="showCoords(event)"><div style="position:absolute; top:100px; left:600px; background-color:green; height:20px;widtH:20px" ></div></div>
+<body style="margin: 0px">
+  <div class="terkep" id="terkep" onclick="showCoords(event)">
+     <div style="position:absolute; top:100px; left:600px; background-color:green; height:20px;widtH:20px" >
+     </div>
+  </div>
+      //------eddig ok
   <div class="headline">
-  <div class="eger" id="eger"></div>
-  <div class="actual">
-  <div class="varos"; id="varos"; style="margin-top:5px">
-  </div>
-  <input type="button" value="ellenőrzés" onclick="ellenorzes()" style="margin-top:5px"/>
-  <div class="varos", style="height: 150px", id="eredmeny">
-  </div>
-  <input type="button" value="Tovább>>" onclick="ujra()" style="margin-top:5px"/>
-  </div>
-  Az eszközről való első használat esetén kalibrálás szükséges. Kattintson a térképen található zöld négyzet BAL FELSŐ sarkába, majd a "kalibrálás" gombra. <input type="button" value="kalibrálás" onclick="kalib()"/>
+     <div class="eger" id="eger">
+     </div>
+     <div class="actual">
+        <div class="varos"; id="varos"; style="margin-top:5px">
+        </div>
+        <input type="button" value="ellenőrzés" onclick="ellenorzes()" style="margin-top:5px"/>
+        <div class="varos", style="height: 150px", id="eredmeny">
+        </div>
+        <input type="button" value="Tovább>>" onclick="ujra()" style="margin-top:5px"/>
+     </div>
+   </div>
    <script>
    x=0
    y=0
